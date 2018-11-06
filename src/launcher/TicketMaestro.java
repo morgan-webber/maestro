@@ -1,11 +1,14 @@
 package launcher;
 
 import forms.AppFrame;
+import lookAndFeel.MaestroLF;
 import org.jdesktop.swingx.border.DropShadowBorder;
 
 import java.awt.*;
+import java.io.File;
+import java.io.IOException;
 
-import javax.swing.JFrame;
+import javax.swing.*;
 
 public class TicketMaestro {
 
@@ -15,8 +18,10 @@ public class TicketMaestro {
 //		AppFrame window = new AppFrame();
 //		window.getFrame().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 //		window.getFrame().setVisible(true);
-		
-		
+
+        // We can use this look/feel library for reference anywhere in the program
+        MaestroLF lf = new MaestroLF();
+
 		// Launch our app frame
 		JFrame frame = new JFrame("Maestro");
 		frame.setUndecorated(true);

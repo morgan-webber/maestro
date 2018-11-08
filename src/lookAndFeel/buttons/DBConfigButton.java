@@ -6,16 +6,16 @@ import javax.swing.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-public class ConfigButton extends BaseButton implements MouseListener {
+public class DBConfigButton extends BaseButton implements MouseListener {
 
     private static int buttonSize = 16;
 
-    public ConfigButton(String text) {
+    public DBConfigButton(String text) {
         super(text);
         this.setProperties();
     }
 
-    public ConfigButton(String text, Icon icon) {
+    public DBConfigButton(String text, Icon icon) {
         super(text, icon);
         this.setProperties();
     }
@@ -45,7 +45,7 @@ public class ConfigButton extends BaseButton implements MouseListener {
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        this.setBackground(backgroundColor);
+        this.setBackground(scaleColor(backgroundColor, -10));
     }
 
 }

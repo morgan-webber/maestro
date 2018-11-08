@@ -2,7 +2,7 @@ package forms;
 
 import dbc.StatusChecker;
 import lookAndFeel.MaestroLF;
-import lookAndFeel.buttons.ConfigButton;
+import lookAndFeel.buttons.DBConfigButton;
 import lookAndFeel.FrameMovementManager;
 import lookAndFeel.buttons.NavButton;
 
@@ -114,7 +114,7 @@ public class AppFrame implements ActionListener {
         btnHome = new NavButton("Home");
         btnTickets = new NavButton("Tickets");
         btnClients = new NavButton("Clients");
-        btnDBConfig = new ConfigButton("", new ImageIcon(MaestroLF.dbImage));
+        btnDBConfig = new DBConfigButton("", new ImageIcon(MaestroLF.dbImage));
 
         // Set fonts
         lblLogoText = new JLabel("Maestro");

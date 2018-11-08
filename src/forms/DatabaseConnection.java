@@ -1,11 +1,15 @@
 package forms;
 
+import dbc.DBInfo;
+import dbc.DatabaseManager;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Properties;
 
 public class DatabaseConnection implements ActionListener {
 
@@ -25,10 +29,31 @@ public class DatabaseConnection implements ActionListener {
     private JFrame optionFrame;
 
     // DBC Vars
-    private Connection sqlConn;
+    private Connection sqlConn = null;
+    private DatabaseManager dbMan = null;
+    private DBInfo dbInfo = null;
+    private Properties dbProps = null;
 
     public DatabaseConnection(){
         btnConnect.addActionListener(this);
+        dbMan = new DatabaseManager(this);
+
+        // Read in our DB info
+        dbInfo = dbMan.readConfig();
+
+        if (dbInfo != null) {
+            txtServer.setText(dbInfo.server);
+            txtUser.setText(dbInfo.user);
+            txtPassword.setText(dbInfo.pass);
+            txtPort.setText(String.valueOf(dbInfo.port));
+
+            // Try connecting
+            try {
+                connectToDB();
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(optionFrame, e.getMessage());
+            }
+        }
     }
 
     private void createUIComponents() {
@@ -44,16 +69,22 @@ public class DatabaseConnection implements ActionListener {
     private Connection connectToDB() throws SQLException{
 
         try {
-            sqlConn = DriverManager.getConnection("jdbc:mysql://" + txtServer.getText() + ":" + txtPort.getText(),
-                    txtUser.getText(), String.valueOf(txtPassword.getPassword()));
 
-            // Connection successful
-            return sqlConn;
+            if (dbInfo != null) {
+                sqlConn = DriverManager.getConnection("jdbc:mysql://" + dbInfo.server + ":" + dbInfo.port,
+                        dbInfo.user, dbInfo.pass);
+
+                // Connection successful
+                dbMan.saveConfig();
+                return sqlConn;
+            }
+            return null;
         }
         catch (SQLException sqle){
             // We'll just pass this guy up and let someone else deal with it
             throw sqle;
         }
+
     }
 
     public Connection getConnection(){ return sqlConn; }
@@ -116,6 +147,10 @@ public class DatabaseConnection implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btnConnect) {
             try {
+
+                dbInfo = new DBInfo(txtServer.getText(), txtUser.getText(), String.valueOf(txtPassword.getPassword()),
+                        Integer.valueOf(txtPort.getText()));
+
                 this.connectToDB();
 
                 // If we succeed we can display a message and close ourselves
@@ -125,5 +160,9 @@ public class DatabaseConnection implements ActionListener {
                 JOptionPane.showMessageDialog(optionFrame, sqle.getMessage());
             }
         }
+    }
+
+    public DBInfo getDbInfo() {
+        return dbInfo;
     }
 }

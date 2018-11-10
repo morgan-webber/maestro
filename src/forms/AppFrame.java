@@ -147,7 +147,7 @@ public class AppFrame implements ActionListener {
 
         // Set fonts
         lblLogoText = new JLabel("MAESTRO");
-        lblLogoText.setFont(MaestroLF.robotoFontBold.deriveFont(16f));
+        lblLogoText.setFont(MaestroLF.robotoFontBold.deriveFont(20f));
 
         panelNav = new JPanel();
     }

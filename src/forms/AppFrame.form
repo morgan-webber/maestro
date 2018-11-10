@@ -27,6 +27,8 @@
             <properties>
               <background color="-13487566"/>
               <font style="1"/>
+              <name value=""/>
+              <requestFocusEnabled value="false"/>
               <text value="MAESTRO"/>
             </properties>
           </component>

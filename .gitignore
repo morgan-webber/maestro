@@ -1,3 +1,4 @@
 #Ignore the 'out' dir
 out/*
 .idea
+/etc/sql.properties

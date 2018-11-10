@@ -6,39 +6,43 @@ import java.io.IOException;
 
 public class MaestroLF {
 
-	// Some basic colors
-	public static Color exitBtnColor = new Color(242, 76, 78);
-	public static Color minBtnColor = new Color(255, 194, 31);
-	public static Color maxBtnColor = new Color(47, 244, 76);
-	public static Color defaultBackground = new Color(50, 50, 50);
-
 	// Nordic Ruby Color Palette
-	public static Color nordicOrange = new Color(188, 65, 35);
-	public static Color nordicBlue = new Color(11, 23, 42);
-	public static Color nordicGrey = new Color(70, 57, 64);
+    public static Color maestroTitleBar = new Color(43, 42, 50);
+	public static Color maestroMainBackground = new Color(43, 43, 43);
+    public static Color maestroCardBackground = new Color(49, 51, 53);
+    public static Color maestroWhite = new Color(254, 254, 254);
+    public static Color maestroGrey = new Color(169, 169, 173);
+    public static Color maestroDarkGreen = new Color(0, 93, 87);
+    public static Color maestroGreen = new Color(0, 185, 130);
+    public static Color nordicOrange = new Color(188, 65, 35);
+    public static Color maestroOrange = new Color(255, 105, 89);
+    public static Color maestroYellow = new Color(252, 209, 83);
+    public static Color maestroPurple = new Color(183, 76, 249);
+    public static Color maestroBlue = new Color(116, 219, 253);
 
 	// Fiverr Color Palette
 	public static Color fiverrBlue = new Color(55, 72, 89);
-	public static Color fiverrBrown = new Color(159, 131, 112);
 
-	// Solarin
-	public static Color solarinGrey = new Color(44, 53, 49);
-	public static Color solarinBlue = new Color(17, 100, 102);
-	public static Color solarinBeige = new Color(217, 176, 140);
-	public static Color solarinLightBeige = new Color(255, 200, 154);
-	public static Color solarinLightBlue = new Color(209, 232, 226);
-
-	public static Font maestroFont = null;
+	public static Font nasalizationFont = null;
+    public static Font robotoFontRegular = null;
+    public static Font robotoFontBold = null;
+    public static Font openSansFontRegular = null;
 
 	// Various dynamic image paths we will use
 	public static String dbErrorImage = "res/buttons/db_error_32x32.png";
 	public static String dbImage = "res/buttons/db_32x32.png";
 
-
-
 	public MaestroLF(){
 	    try {
-            maestroFont = Font.createFont(Font.TRUETYPE_FONT, new File("res/font/nasalization-rg.ttf"));
+            nasalizationFont = Font.createFont(Font.TRUETYPE_FONT, new File("res/font/nasalization-rg.ttf"));
+
+            // Roboto
+            robotoFontRegular = Font.createFont(Font.TRUETYPE_FONT, new File("res/font/roboto/RobotoCondensed-Regular.ttf"));
+            robotoFontBold = Font.createFont(Font.TRUETYPE_FONT, new File("res/font/roboto/RobotoCondensed-Bold.ttf"));
+
+            // Open Sans
+            openSansFontRegular = Font.createFont(Font.TRUETYPE_FONT, new File("res/font/opensans/OpenSans-Regular.ttf"));
+
         } catch (IOException|FontFormatException e) {
             e.printStackTrace();
         }

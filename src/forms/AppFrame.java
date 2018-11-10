@@ -15,9 +15,10 @@ public class AppFrame implements ActionListener {
 
     private JLabel lblLogoText;
 
-    private JPanel panelMain;
-    private JPanel mainContentPane;
-    private JPanel navPane;
+    private JPanel panelMaestro;
+    private JPanel panelContent;
+    private JPanel panelNav;
+    private RailNavigator railNav;
 
     private JButton btnMinimize;
     private JButton btnExit;
@@ -26,6 +27,8 @@ public class AppFrame implements ActionListener {
     private JButton btnHome;
     private JButton btnClients;
     private JButton btnDBConfig;
+    private JPanel panelTitle;
+    private JPanel panelMain;
 
     // Our database connection
     DatabaseConnection dbc;
@@ -37,6 +40,29 @@ public class AppFrame implements ActionListener {
      * Default ctor
      */
     public AppFrame() {
+
+        // Populate rail navigator
+        ImageIcon iconHome = new ImageIcon("res/buttons/home/home32.png");
+        ImageIcon iconHomeSel = new ImageIcon("res/buttons/home/home32_sel.png");
+        ImageIcon iconTickets = new ImageIcon("res/buttons/tickets/tickets32.png");
+        ImageIcon iconTicketsSel = new ImageIcon("res/buttons/tickets/tickets32_sel.png");
+        ImageIcon iconClients = new ImageIcon("res/buttons/clients/clients32.png");
+        ImageIcon iconClientsSel = new ImageIcon("res/buttons/clients/clients32_sel.png");
+        ImageIcon iconSettings = new ImageIcon("res/buttons/settings/settings32.png");
+        ImageIcon iconSettingsSel = new ImageIcon("res/buttons/settings/settings32_sel.png");
+
+        NavButton btnHome = new NavButton(iconHome, iconHomeSel);
+        NavButton btnTickets = new NavButton(iconTickets, iconTicketsSel);
+        NavButton btnClients = new NavButton(iconClients, iconClientsSel);
+        NavButton btnSettings = new NavButton(iconSettings, iconSettingsSel);
+
+        railNav = new RailNavigator(panelContent);
+        railNav.addItem(btnHome, new JPanel());
+        railNav.addItem(btnTickets, new JPanel());
+        railNav.addItem(btnClients, new JPanel());
+        railNav.addItem(btnSettings, new JPanel());
+        panelNav.add(railNav);
+
         // Minimize button listeners
         btnMinimize.addMouseListener(new MouseAdapter() {
             @Override
@@ -69,12 +95,19 @@ public class AppFrame implements ActionListener {
 
         dbc = new DatabaseConnection();
         btnDBConfig.addActionListener(this);
-        btnDBConfig.setBackground(MaestroLF.defaultBackground);
+        btnDBConfig.setBackground(MaestroLF.maestroMainBackground);
 
         // Kick off our status checker
         statusChecker = new StatusChecker(5000);
         statusChecker.setDbConn(dbc, btnDBConfig);
         statusChecker.start();
+
+        // Set panel colors
+        panelContent.setBackground(MaestroLF.maestroCardBackground);
+        panelMaestro.setBackground(MaestroLF.maestroMainBackground);
+        panelMain.setBackground(MaestroLF.maestroMainBackground);
+        panelNav.setBackground(MaestroLF.maestroMainBackground);
+        panelTitle.setBackground(MaestroLF.maestroMainBackground);
     }
 
     /**
@@ -89,7 +122,7 @@ public class AppFrame implements ActionListener {
 
     public void moveToFrame(JFrame frame){
         parentFrame = frame;
-        parentFrame.setContentPane(getContentPane());
+        parentFrame.setContentPane(getPanelContent());
 
         FrameMovementManager fmm = new FrameMovementManager(parentFrame);
         parentFrame.addMouseListener(fmm);
@@ -104,22 +137,19 @@ public class AppFrame implements ActionListener {
         });
     }
 
-    public JPanel getContentPane(){
-        return panelMain;
+    public JPanel getPanelContent(){
+        return panelMaestro;
     }
 
     private void createUIComponents() {
 
-        // Create our custom buttons
-        btnHome = new NavButton("Home");
-        btnTickets = new NavButton("Tickets");
-        btnClients = new NavButton("Clients");
         btnDBConfig = new DBConfigButton("", new ImageIcon(MaestroLF.dbImage));
 
         // Set fonts
-        lblLogoText = new JLabel("Maestro");
-        lblLogoText.setFont(MaestroLF.maestroFont.deriveFont(20f));
+        lblLogoText = new JLabel("MAESTRO");
+        lblLogoText.setFont(MaestroLF.robotoFontBold.deriveFont(16f));
 
+        panelNav = new JPanel();
     }
 
     @Override

@@ -5,12 +5,10 @@ import lookAndFeel.MaestroLF;
 import org.jdesktop.swingx.border.DropShadowBorder;
 
 import java.awt.*;
-import java.io.File;
-import java.io.IOException;
 
 import javax.swing.*;
 
-public class TicketMaestro {
+public class Maestro {
 
 	public static void main(String args[]) {
 		
@@ -25,7 +23,7 @@ public class TicketMaestro {
 		// Launch our app frame
 		JFrame frame = new JFrame("Maestro");
 		frame.setUndecorated(true);
-		frame.setContentPane(new AppFrame(frame).getContentPane());
+		frame.setContentPane(new AppFrame(frame).getPanelContent());
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		// Create our neat drop shadow border

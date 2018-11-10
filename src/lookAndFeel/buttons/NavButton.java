@@ -1,53 +1,53 @@
 package lookAndFeel.buttons;
 
+import lookAndFeel.MaestroLF;
+
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.Color;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 
-public class NavButton extends BaseButton implements MouseListener {
+public class NavButton extends BaseButton {
 
+    public ImageIcon baseImage, selectedImage = null;
 
+    public NavButton(ImageIcon initImage, ImageIcon initSelectedImage) {
+        super("", initImage);
 
-    public NavButton(String text) {
-        super(text);
+        // Set our images
+        baseImage = initImage;
+        selectedImage = initSelectedImage;
+        setBackground(MaestroLF.maestroMainBackground);
+
+        // Gotta set the button border to make it just a bit bigger
+        setBorder(BorderFactory.createLineBorder(getBackground(), 15));
+
         setProperties();
+
     }
 
-    public NavButton(String text, Icon icon) {
-        super(text, icon);
-        setProperties();
+    @Override
+    public void setBackground(Color color){
+        super.setBackground(color);
+        setBorder(BorderFactory.createLineBorder(getBackground(), 15));
     }
 
     @Override
     public void setProperties(){
+        this.setSelected(false);
         super.setProperties();
-        setButtonColor(backgroundColor);
-        this.addMouseListener(this);
     }
 
-    @Override
-    public void mouseClicked(MouseEvent e) {}
-    public void mouseEntered(MouseEvent e) {}
-    public void mouseExited(MouseEvent e) {}
-
-    @Override
-    public void mousePressed(MouseEvent e) {
-        setButtonColor(scaleColor(this.getBackground(), 10));
+    public void setIsSelected(Boolean isSelected){
+        if (isSelected){
+            this.setIcon(selectedImage);
+        }
+        else{
+            this.setIcon(baseImage);
+        }
     }
 
-    @Override
-    public void mouseReleased(MouseEvent e) {
-        setButtonColor(scaleColor(this.getBackground(), -10));
-    }
-
-    private void setButtonColor(Color color){
-        this.setBackground(color);
-        this.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createEmptyBorder(),
-                BorderFactory.createLineBorder(color, borderWeight * 20))
-        );
-    }
 
 }

@@ -1,7 +1,7 @@
 package forms;
 
 import dbc.DBInfo;
-import dbc.DatabaseManager;
+import dbc.DBManager;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -30,16 +30,17 @@ public class DatabaseConnection implements ActionListener {
 
     // DBC Vars
     private Connection sqlConn = null;
-    private DatabaseManager dbMan = null;
+    private DBManager dbMan = null;
     private DBInfo dbInfo = null;
     private Properties dbProps = null;
 
     public DatabaseConnection(){
         btnConnect.addActionListener(this);
-        dbMan = new DatabaseManager(this);
+        dbMan = new DBManager(this);
 
         // Read in our DB info
-        dbInfo = dbMan.readConfig();
+        dbInfo = new DBInfo();
+        dbInfo.readConfig();
 
         if (dbInfo != null) {
             txtServer.setText(dbInfo.server);
@@ -75,7 +76,7 @@ public class DatabaseConnection implements ActionListener {
                         dbInfo.user, dbInfo.pass);
 
                 // Connection successful
-                dbMan.saveConfig();
+                dbInfo.saveConfig();
                 return sqlConn;
             }
             return null;

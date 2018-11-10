@@ -8,7 +8,7 @@ import java.awt.*;
 public abstract class BaseButton extends JButton {
 
     // Slightly lighter than the background color
-    protected Color backgroundColor = MaestroLF.nordicOrange;
+    protected Color backgroundColor = MaestroLF.maestroWhite;
 
     // Border stuff
     protected static int borderWeight = 1; // px
@@ -25,7 +25,7 @@ public abstract class BaseButton extends JButton {
     }
 
     public void setProperties(){
-        this.setFont(MaestroLF.maestroFont.deriveFont(14f));
+        this.setFont(MaestroLF.nasalizationFont.deriveFont(14f));
         setContentAreaFilled(false);
         setOpaque(true);
         setFocusPainted(false);

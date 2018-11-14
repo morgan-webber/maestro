@@ -56,11 +56,15 @@ public class AppFrame implements ActionListener {
         NavButton btnClients = new NavButton(iconClients, iconClientsSel);
         NavButton btnSettings = new NavButton(iconSettings, iconSettingsSel);
 
+        // Create content panels
+        ClientsPanel clientsPanel = new ClientsPanel();
+
+        // Create our rail navigation panel
         railNav = new RailNavigator(panelContent);
-        railNav.addItem(btnHome, new JPanel());
-        railNav.addItem(btnTickets, new JPanel());
-        railNav.addItem(btnClients, new JPanel());
-        railNav.addItem(btnSettings, new JPanel());
+        railNav.addItem(btnHome, null);
+        railNav.addItem(btnTickets, null);
+        railNav.addItem(btnClients, clientsPanel.getPanelMain());
+        railNav.addItem(btnSettings, null);
         panelNav.add(railNav);
 
         // Minimize button listeners
@@ -150,21 +154,15 @@ public class AppFrame implements ActionListener {
         lblLogoText.setFont(MaestroLF.robotoFontBold.deriveFont(20f));
 
         panelNav = new JPanel();
+
+        panelContent = new JPanel();
+        panelContent.setLayout(new GridLayout(1,1));
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btnDBConfig){
             dbc.toggleVisible();
-        }
-        if (e.getSource() == btnHome){
-
-        }
-        if (e.getSource() == btnTickets){
-
-        }
-        if (e.getSource() == btnClients){
-
         }
     }
 }

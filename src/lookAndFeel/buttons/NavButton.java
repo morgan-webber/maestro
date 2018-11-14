@@ -11,7 +11,7 @@ import java.awt.event.MouseListener;
 
 public class NavButton extends BaseButton {
 
-    public ImageIcon baseImage, selectedImage = null;
+    private ImageIcon baseImage, selectedImage = null;
 
     public NavButton(ImageIcon initImage, ImageIcon initSelectedImage) {
         super("", initImage);
@@ -40,14 +40,12 @@ public class NavButton extends BaseButton {
         super.setProperties();
     }
 
-    public void setIsSelected(Boolean isSelected){
-        if (isSelected){
+    public void setIsSelected(Boolean isSelected) {
+        if (isSelected) {
             this.setIcon(selectedImage);
-        }
-        else{
+        } else {
             this.setIcon(baseImage);
         }
     }
-
 
 }

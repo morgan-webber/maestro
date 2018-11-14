@@ -14,18 +14,19 @@ import java.util.HashMap;
 
 public class RailNavigator extends JPanel implements ActionListener, MouseListener {
 
-    private JPanel destinationPane = null;
+    private JPanel destinationPanel = null;
     private HashMap<NavButton, JPanel> navigationItems = new HashMap<>();
     private NavButton currentSelection = null;
     private GridLayout gridLayout;
 
 
-    public RailNavigator(JPanel initDestPane){
+    public RailNavigator(JPanel initSwapPane){
         super();
 
         this.setBackground(MaestroLF.maestroMainBackground);
 
-        destinationPane = initDestPane;
+
+        destinationPanel = initSwapPane;
 
         // We'll use a columnar layout
         gridLayout = new GridLayout(4, 1);
@@ -41,6 +42,29 @@ public class RailNavigator extends JPanel implements ActionListener, MouseListen
         navigationItems.put(button, panel);
 
         this.add(button);
+    }
+
+    /**
+     * Loads the Navigation Button's associated panel into the destination pane
+     * @param navButton
+     */
+    public void loadPanelFromButton(NavButton navButton){
+        // Clear out the dest
+        destinationPanel.removeAll();
+
+        // Add our new panel
+        JPanel nextPane = navigationItems.get(navButton);
+
+        if (nextPane != null){
+            nextPane.setMinimumSize(destinationPanel.getSize());
+            nextPane.setMaximumSize(destinationPanel.getSize());
+            destinationPanel.add(nextPane);
+        }
+
+        destinationPanel.revalidate();
+        destinationPanel.repaint();
+
+
     }
 
     @Override
@@ -73,9 +97,15 @@ public class RailNavigator extends JPanel implements ActionListener, MouseListen
             NavButton selectedButton = (NavButton)e.getSource();
 
             // Select this one and deselect the last one
-            currentSelection.setSelected(false);
+            if (currentSelection != null){ // avoid selection on the first click
+                currentSelection.setSelected(false);
+            }
+
             selectedButton.setSelected(true);
             currentSelection = selectedButton;
+
+            // Load the selected button's associated panel
+            loadPanelFromButton(currentSelection);
         }
         catch (Exception ex){
             // meh

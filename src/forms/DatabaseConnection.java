@@ -1,11 +1,13 @@
 package forms;
 
+import com.mysql.cj.jdbc.exceptions.CommunicationsException;
 import dbc.DBInfo;
 import dbc.DBManager;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.ConnectException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -51,7 +53,11 @@ public class DatabaseConnection implements ActionListener {
             // Try connecting
             try {
                 connectToDB();
-            } catch (SQLException e) {
+            }
+            catch (CommunicationsException e){
+                // This is a possible expected error, do not present a message to them
+            }
+            catch (SQLException e) {
                 JOptionPane.showMessageDialog(optionFrame, e.getMessage());
             }
         }
@@ -69,22 +75,15 @@ public class DatabaseConnection implements ActionListener {
      */
     private Connection connectToDB() throws SQLException{
 
-        try {
+        if (dbInfo != null) {
+            sqlConn = DriverManager.getConnection("jdbc:mysql://" + dbInfo.server + ":" + dbInfo.port,
+                    dbInfo.user, dbInfo.pass);
 
-            if (dbInfo != null) {
-                sqlConn = DriverManager.getConnection("jdbc:mysql://" + dbInfo.server + ":" + dbInfo.port,
-                        dbInfo.user, dbInfo.pass);
-
-                // Connection successful
-                dbInfo.saveConfig();
-                return sqlConn;
-            }
-            return null;
+            // Connection successful
+            dbInfo.saveConfig();
+            return sqlConn;
         }
-        catch (SQLException sqle){
-            // We'll just pass this guy up and let someone else deal with it
-            throw sqle;
-        }
+        return null;
 
     }
 

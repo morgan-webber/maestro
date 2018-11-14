@@ -23,6 +23,7 @@ public class Maestro {
 		// Launch our app frame
 		JFrame frame = new JFrame("Maestro");
 		frame.setUndecorated(true);
+		frame.setResizable(true);
 		frame.setContentPane(new AppFrame(frame).getPanelContent());
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 

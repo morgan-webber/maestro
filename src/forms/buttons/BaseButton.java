@@ -1,4 +1,4 @@
-package lookAndFeel.buttons;
+package forms.buttons;
 
 import lookAndFeel.MaestroLF;
 
@@ -9,10 +9,6 @@ public abstract class BaseButton extends JButton {
 
     // Slightly lighter than the background color
     protected Color backgroundColor = MaestroLF.maestroWhite;
-
-    // Border stuff
-    protected static int borderWeight = 1; // px
-
 
     public BaseButton(String text) {
         super(text);

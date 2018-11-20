@@ -1,6 +1,4 @@
-package lookAndFeel.buttons;
-
-import lookAndFeel.buttons.NavButton;
+package forms.buttons;
 
 import javax.swing.*;
 import java.awt.event.MouseEvent;

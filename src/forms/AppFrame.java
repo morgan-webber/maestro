@@ -2,9 +2,9 @@ package forms;
 
 import dbc.StatusChecker;
 import lookAndFeel.MaestroLF;
-import lookAndFeel.buttons.DBConfigButton;
+import forms.buttons.DBConfigButton;
 import lookAndFeel.FrameMovementManager;
-import lookAndFeel.buttons.NavButton;
+import forms.buttons.NavButton;
 
 import javax.swing.*;
 import java.awt.*;
@@ -107,7 +107,7 @@ public class AppFrame implements ActionListener {
         statusChecker.start();
 
         // Set panel colors
-        panelContent.setBackground(MaestroLF.maestroCardBackground);
+        panelContent.setBackground(MaestroLF.maestroMainBackground);
         panelMaestro.setBackground(MaestroLF.maestroMainBackground);
         panelMain.setBackground(MaestroLF.maestroMainBackground);
         panelNav.setBackground(MaestroLF.maestroMainBackground);

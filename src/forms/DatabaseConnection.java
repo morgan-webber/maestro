@@ -8,9 +8,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.ConnectException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.Properties;
 
 public class DatabaseConnection implements ActionListener {
@@ -79,6 +77,9 @@ public class DatabaseConnection implements ActionListener {
             sqlConn = DriverManager.getConnection("jdbc:mysql://" + dbInfo.server + ":" + dbInfo.port,
                     dbInfo.user, dbInfo.pass);
 
+            // connect to maestro db
+            doQuery("use maestro;");
+
             // Connection successful
             dbInfo.saveConfig();
             return sqlConn;
@@ -89,25 +90,36 @@ public class DatabaseConnection implements ActionListener {
 
     public Connection getConnection(){ return sqlConn; }
 
-    public boolean doQuery(String query){
+    public ResultSet doQuery(String query){
 
         try {
-            if (! sqlConn.isClosed()){
-
+            if (sqlConn == null){
+                return null;
             }
-        } catch (SQLException e) {
+
+            if (sqlConn.isClosed()){
+                connectToDB();
+            }
+
+            Statement statement = sqlConn.createStatement();
+            ResultSet rs = statement.executeQuery(query);
+            return rs;
+
+        }
+        catch (SQLException e) {
             e.printStackTrace();
+            return null;
         }
 
-        return false;
+
     }
 
     public void closeConnection() throws SQLException{
-        try {
-            sqlConn.close();
-        } catch (SQLException e) {
-            throw e;
-        }
+        sqlConn.close();
+    }
+
+    public boolean isAlive() throws SQLException {
+        return sqlConn.isValid(1000);
     }
 
     /**

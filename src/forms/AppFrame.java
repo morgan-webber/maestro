@@ -1,6 +1,7 @@
 package forms;
 
 import dbc.StatusChecker;
+import forms.clients.ClientsPanel;
 import lookAndFeel.MaestroLF;
 import forms.buttons.DBConfigButton;
 import lookAndFeel.FrameMovementManager;
@@ -56,8 +57,12 @@ public class AppFrame implements ActionListener {
         NavButton btnClients = new NavButton(iconClients, iconClientsSel);
         NavButton btnSettings = new NavButton(iconSettings, iconSettingsSel);
 
+        // Create db connection
+        dbc = new DatabaseConnection();
+
         // Create content panels
-        ClientsPanel clientsPanel = new ClientsPanel();
+        ClientsPanel clientsPanel = new ClientsPanel(dbc);
+
 
         // Create our rail navigation panel
         railNav = new RailNavigator(panelContent);
@@ -97,7 +102,7 @@ public class AppFrame implements ActionListener {
         //Logo stuff
         lblLogoText.setForeground(new Color(255, 255, 255));
 
-        dbc = new DatabaseConnection();
+
         btnDBConfig.addActionListener(this);
         btnDBConfig.setBackground(MaestroLF.maestroMainBackground);
 

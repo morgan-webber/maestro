@@ -2,9 +2,12 @@ package forms.CollectionView;
 
 import java.awt.*;
 
-public class CollectionLayout extends FlowLayout {
+public class CollectionLayout extends GridLayout {
     private int columns, rows;
 
+    public CollectionLayout(int rows, int cols){
+        super(rows, cols);
+    }
 
     public int getColumns() {
         return columns;

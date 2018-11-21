@@ -1,6 +1,7 @@
-package forms;
+package forms.clients;
 
 import forms.CollectionView.CollectionView;
+import forms.DatabaseConnection;
 import lookAndFeel.MaestroLF;
 
 import javax.swing.*;
@@ -11,6 +12,11 @@ public class ClientsPanel {
     private JPanel panelMain;
     private JScrollPane panelMainScroll;
     private CollectionView clientsView;
+    private DatabaseConnection dbc;
+
+    public ClientsPanel(DatabaseConnection initdbc){
+        this.dbc = initdbc;
+    }
 
     public JPanel getPanelMain() { return panelMain; }
 
@@ -19,7 +25,7 @@ public class ClientsPanel {
         panelMain.setBorder(new LineBorder(MaestroLF.maestroMainBackground, 10));
         panelMain.setBackground(MaestroLF.maestroMainBackground);
 
-        clientsView = new CollectionView();
+        clientsView = new CollectionView(dbc, panelMain);
 
         panelMainScroll = new JScrollPane(clientsView, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
                 JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);

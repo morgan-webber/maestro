@@ -86,7 +86,7 @@ public class AppFrame implements ActionListener {
             @Override
             public void mouseClicked(MouseEvent e){
                 super.mouseClicked(e);
-                parentFrame.setState(JFrame.MAXIMIZED_BOTH);
+                parentFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
             }
         });
 

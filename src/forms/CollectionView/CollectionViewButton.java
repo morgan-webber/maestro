@@ -11,7 +11,7 @@ import java.awt.event.MouseListener;
 
 public class CollectionViewButton extends BaseButton implements MouseListener {
 
-    private CollectionView parentPanel;
+    protected CollectionView parentPanel;
 
     public static int buttonSize = 150;
 

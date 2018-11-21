@@ -87,6 +87,7 @@ public class AppFrame implements ActionListener {
             public void mouseClicked(MouseEvent e){
                 super.mouseClicked(e);
                 parentFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+                Toolkit.getDefaultToolkit().getScreenResolution();
             }
         });
 

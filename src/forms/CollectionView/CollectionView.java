@@ -101,7 +101,7 @@ public class CollectionView extends JPanel {
 
 
         // Add a special button that will be the 'add client' button
-        CollectionViewButton addButton = new CollectionViewButton(this);
+        CollectionViewButton addButton = new CollectionViewAddButton(this);
         addButton.setForeground(MaestroLF.maestroWhite);
         addButton.setText("+");
         this.add(addButton);
@@ -113,6 +113,8 @@ public class CollectionView extends JPanel {
         this.repaint();
     }
 
-
+    public ArrayList<ClientInfo> getClientCollection() {
+        return clientCollection;
+    }
 
 }
